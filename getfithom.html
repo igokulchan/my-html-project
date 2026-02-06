@@ -1,10 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Valentine ❤️</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg,#ff4e8a,#ff9a9e);
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        z-index: 2;
+    }
+
+    h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+    }
+
+    button {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        cursor: pointer;
+        background: white;
+        color: #ff4e8a;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        transform: scale(1.1);
+    }
+
+    /* Floating hearts */
+    .heart {
+        position: absolute;
+        bottom: -20px;
+        font-size: 20px;
+        animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0) scale(1); opacity:1;}
+        100% { transform: translateY(-110vh) scale(1.5); opacity:0;}
+    }
+</style>
 </head>
-  <head>
-    <body>
-      <h1>HELLO</h1>
-    </body>
-  </head></html>
+
+<body>
+
+<div class="card">
+    <h1>❤️ Happy Valentine ❤️</h1>
+    <p>Click below for a message</p>
+    <button onclick="showLove()">Open Message</button>
+    <p id="msg"></p>
+</div>
+
+<script>
+function showLove(){
+    document.getElementById("msg").innerHTML =
+    "You make my world brighter every day 💖<br>I’m lucky to have you ❤️";
+}
+
+/* Create floating hearts */
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random()*20+10) + "px";
+    heart.style.animationDuration = (Math.random()*3+3) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{ heart.remove(); },6000);
+}
+
+setInterval(createHeart,300);
+</script>
+
+</body>
+</html>
