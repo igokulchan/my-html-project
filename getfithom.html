@@ -3,97 +3,116 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Valentine ❤️</title>
+<title>Will You Be My Valentine?</title>
 
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg,#ff4e8a,#ff9a9e);
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        text-align: center;
-    }
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family: Arial, sans-serif;
+    background:linear-gradient(135deg,#ff5f9e,#ffc3a0);
+    overflow:hidden;
+}
 
-    .card {
-        background: rgba(255,255,255,0.1);
-        backdrop-filter: blur(10px);
-        padding: 40px;
-        border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        z-index: 2;
-    }
+/* Main box */
+.container{
+    text-align:center;
+}
 
-    h1 {
-        font-size: 2.5em;
-        margin-bottom: 10px;
-    }
+/* Buttons */
+button{
+    padding:12px 28px;
+    font-size:18px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    margin:10px;
+    transition:0.3s;
+}
 
-    button {
-        padding: 12px 25px;
-        border: none;
-        border-radius: 25px;
-        font-size: 16px;
-        cursor: pointer;
-        background: white;
-        color: #ff4e8a;
-        font-weight: bold;
-        transition: 0.3s;
-    }
+#yes{
+    background:white;
+    color:#ff2e74;
+    font-weight:bold;
+}
 
-    button:hover {
-        transform: scale(1.1);
-    }
+#no{
+    background:#333;
+    color:white;
+    position:absolute;
+}
 
-    /* Floating hearts */
-    .heart {
-        position: absolute;
-        bottom: -20px;
-        font-size: 20px;
-        animation: float 6s linear infinite;
-    }
+/* Ring Animation Screen */
+#success{
+    display:none;
+    text-align:center;
+    color:white;
+}
 
-    @keyframes float {
-        0% { transform: translateY(0) scale(1); opacity:1;}
-        100% { transform: translateY(-110vh) scale(1.5); opacity:0;}
-    }
+.ring{
+    font-size:80px;
+    animation: pop 1s ease forwards;
+}
+
+@keyframes pop{
+    0%{transform:scale(0);}
+    70%{transform:scale(1.3);}
+    100%{transform:scale(1);}
+}
+
+.name{
+    font-size:28px;
+    margin-top:15px;
+    animation: fade 2s ease forwards;
+}
+
+@keyframes fade{
+    from{opacity:0;}
+    to{opacity:1;}
+}
 </style>
 </head>
 
 <body>
 
-<div class="card">
-    <h1>❤️ Happy Valentine ❤️</h1>
-    <p>Click below for a message</p>
-    <button onclick="showLove()">Open Message</button>
-    <p id="msg"></p>
+<div class="container" id="question">
+    <h1>Will you be my Valentine? ❤️</h1>
+    <button id="yes" onclick="sayYes()">Yes 💍</button>
+    <button id="no">No 🙈</button>
+</div>
+
+<div id="success">
+    <div class="ring">💍</div>
+    <h1>Hi Nivi this is for you</h1>
+    <div class="name" id="herName"></div>
 </div>
 
 <script>
-function showLove(){
-    document.getElementById("msg").innerHTML =
-    "You make my world brighter every day 💖<br>I’m lucky to have you ❤️";
+
+/* RUN AWAY NO BUTTON */
+const noBtn = document.getElementById("no");
+
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+/* YES CLICK */
+function sayYes(){
+    document.getElementById("question").style.display="none";
+    document.getElementById("success").style.display="block";
+
+    /* Put her name here */
+    const name = "Your Love ❤️";  // <<< CHANGE THIS
+    document.getElementById("herName").innerText =
+        "Forever yours, " + "gokul";
 }
 
-/* Create floating hearts */
-function createHeart(){
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (Math.random()*20+10) + "px";
-    heart.style.animationDuration = (Math.random()*3+3) + "s";
-
-    document.body.appendChild(heart);
-
-    setTimeout(()=>{ heart.remove(); },6000);
-}
-
-setInterval(createHeart,300);
 </script>
 
 </body>
