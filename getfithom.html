@@ -3,34 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Will You Be My Valentine?</title>
+<title>Valentine ❤️</title>
 
 <style>
 body{
     margin:0;
     height:100vh;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(135deg,#ff5f9e,#ffc3a0);
     display:flex;
     justify-content:center;
     align-items:center;
-    font-family: Arial, sans-serif;
-    background:linear-gradient(135deg,#ff5f9e,#ffc3a0);
     overflow:hidden;
 }
-
-/* Main box */
+.love-img{
+    width:220px;
+    max-width:80%;
+    border-radius:20px;
+    margin-top:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
 .container{
     text-align:center;
 }
 
+h1{
+    font-size:clamp(24px,6vw,40px);
+    color:white;
+}
+
 /* Buttons */
 button{
-    padding:12px 28px;
+    padding:12px 24px;
     font-size:18px;
     border:none;
-    border-radius:25px;
+    border-radius:30px;
     cursor:pointer;
     margin:10px;
-    transition:0.3s;
 }
 
 #yes{
@@ -42,10 +51,10 @@ button{
 #no{
     background:#333;
     color:white;
-    position:absolute;
+    position:fixed;
 }
 
-/* Ring Animation Screen */
+/* Success screen */
 #success{
     display:none;
     text-align:center;
@@ -53,8 +62,8 @@ button{
 }
 
 .ring{
-    font-size:80px;
-    animation: pop 1s ease forwards;
+    font-size:clamp(60px,12vw,100px);
+    animation:pop 1s ease forwards;
 }
 
 @keyframes pop{
@@ -63,16 +72,6 @@ button{
     100%{transform:scale(1);}
 }
 
-.name{
-    font-size:28px;
-    margin-top:15px;
-    animation: fade 2s ease forwards;
-}
-
-@keyframes fade{
-    from{opacity:0;}
-    to{opacity:1;}
-}
 </style>
 </head>
 
@@ -80,38 +79,61 @@ button{
 
 <div class="container" id="question">
     <h1>Will you be my Valentine? ❤️</h1>
-    <button id="yes" onclick="sayYes()">Yes 💍</button>
+    <button id="yes">Yes 💍</button>
     <button id="no">No 🙈</button>
 </div>
 
 <div id="success">
     <div class="ring">💍</div>
-    <h1>Hi Nivi this is for you</h1>
-    <div class="name" id="herName"></div>
+<img class="love-img"
+src="https://raw.githubusercontent.com/igokulchan/manikandan/main/WhatsApp%20Image%202026-02-06%20at%2010.39.52%20AM.jpeg">
+    <h1 id="msg"></h1>
 </div>
 
 <script>
 
-/* RUN AWAY NO BUTTON */
 const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
 
-noBtn.addEventListener("mouseover", () => {
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 50);
+/* Move NO button anywhere inside screen */
+function moveButton(){
+
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
+
+    const maxX = window.innerWidth - btnWidth - 10;
+    const maxY = window.innerHeight - btnHeight - 10;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
+}
+
+/* Desktop hover */
+noBtn.addEventListener("mouseover", moveButton);
+
+/* Mobile touch */
+noBtn.addEventListener("touchstart", function(e){
+    e.preventDefault();
+    moveButton();
 });
 
+/* Click fallback */
+noBtn.addEventListener("click", moveButton);
+
+
 /* YES CLICK */
-function sayYes(){
+yesBtn.addEventListener("click", ()=>{
     document.getElementById("question").style.display="none";
     document.getElementById("success").style.display="block";
 
-    /* Put her name here */
-    const name = "Your Love ❤️";  // <<< CHANGE THIS
-    document.getElementById("herName").innerText =
-        "Forever yours, " + "gokul";
-}
+    const name = "Your Love ❤️"; // CHANGE NAME
+   document.getElementById("msg").innerHTML =
+    "Forever Yours,<br>Gokul ❤️<br>my nivi";
+
+});
 
 </script>
 
